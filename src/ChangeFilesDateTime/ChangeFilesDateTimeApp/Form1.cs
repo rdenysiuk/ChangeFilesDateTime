@@ -79,6 +79,5 @@ namespace ChangeFilesDateTimeApp
             _fileList = _dateTimeChanger.ListFile;
             FillGridView();
         }
-
     }
 }

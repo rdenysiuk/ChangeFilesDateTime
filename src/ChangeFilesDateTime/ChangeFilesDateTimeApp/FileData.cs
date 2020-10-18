@@ -7,7 +7,6 @@ namespace ChangeFilesDateTimeApp
     public class FileData
     {
         public FileInfo File { get; set; }
-
         public DateTime NewDateTime
         {
             get
@@ -21,23 +20,8 @@ namespace ChangeFilesDateTimeApp
                     return this.File.LastWriteTime;
             }
         }
-
-        public string FileName
-        {
-            get
-            {
-                return this.File.Name;
-            }
-        }
-
-        public string LastWriteTime
-        {
-            get
-            {
-                return this.File.LastWriteTime.ToString("dd.MM.yyyy HH:mm:ss");
-            }
-        }
-
+        public string FileName => this.File.Name;
+        public string LastWriteTime => this.File.LastWriteTime.ToString("dd.MM.yyyy HH:mm:ss");
         private DateTime Parse(string date, string time)
         {
             int year = Convert.ToInt32(date.Substring(0, 4));

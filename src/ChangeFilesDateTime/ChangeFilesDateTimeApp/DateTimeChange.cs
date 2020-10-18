@@ -10,16 +10,13 @@ namespace ChangeFilesDateTimeApp
     public class DateTimeChange
     {
         readonly ILog _log;
-        string _pathFolder { get; set; }
+        private string _pathFolder;
         public string Filter { get; set; }
-        public List<FileData> ListFile
+        public List<FileData> ListFile => GetFiles();
+
+        public DateTimeChange(ILog log)
         {
-            get { return GetFiles(); }
-        }
-        
-        public DateTimeChange(ILog renamerLog)
-        {
-            _log = renamerLog;
+            _log = log;
         }
 
         public void SetPathFolder(string pathFolder)
@@ -34,9 +31,9 @@ namespace ChangeFilesDateTimeApp
 
         void ChangeLastWriteTime()
         {
-            for (int i = 0; i < ListFile.Count; i++)
+            foreach (var file in ListFile)
             {
-                ListFile[i].File.LastWriteTime = ListFile[i].NewDateTime;
+                file.File.LastWriteTime = file.NewDateTime;
             }
 
             _log.Log($"Success. Modified time changed {ListFile.Count} times");
@@ -44,9 +41,9 @@ namespace ChangeFilesDateTimeApp
 
         void ChangeCreationTime()
         {
-            for (int i = 0; i < ListFile.Count; i++)
+            foreach (var file in ListFile)
             {
-                ListFile[i].File.CreationTime = ListFile[i].NewDateTime;
+                file.File.CreationTime = file.NewDateTime;
             }
 
             _log.Log($"Success. Creation time changed {ListFile.Count} times");
@@ -77,7 +74,6 @@ namespace ChangeFilesDateTimeApp
 
             return false;
         }
-
         #endregion
     }
 }
