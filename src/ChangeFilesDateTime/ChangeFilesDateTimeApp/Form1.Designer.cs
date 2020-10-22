@@ -40,7 +40,7 @@
             this.tsStatusText = new System.Windows.Forms.ToolStripStatusLabel();
             this.label2 = new System.Windows.Forms.Label();
             this.cmb_filter = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize) (this.gridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -69,7 +69,10 @@
             this.gridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.gridView.BackgroundColor = System.Drawing.SystemColors.Menu;
             this.gridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.filename, this.datetime, this.datetimeNew});
+            this.gridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.filename,
+            this.datetime,
+            this.datetimeNew});
             this.gridView.Location = new System.Drawing.Point(15, 39);
             this.gridView.Name = "gridView";
             this.gridView.RowHeadersWidth = 20;
@@ -77,7 +80,8 @@
             this.gridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.gridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridView.Size = new System.Drawing.Size(497, 368);
-            this.gridView.TabIndex = 3;
+            this.gridView.TabIndex = 3;            
+            this.gridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.gridView_UserDeletingRow);
             // 
             // filename
             // 
@@ -111,11 +115,14 @@
             this.btnChangeDateTime.TabIndex = 4;
             this.btnChangeDateTime.Text = "Change DateTime";
             this.btnChangeDateTime.UseVisualStyleBackColor = true;
+            this.btnChangeDateTime.Click += new System.EventHandler(this.btnChangeDateTime_Click);
             // 
             // statusStrip1
             // 
             this.statusStrip1.AutoSize = false;
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.toolStripStatusLabel1, this.tsStatusText});
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
+            this.tsStatusText});
             this.statusStrip1.Location = new System.Drawing.Point(0, 439);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(524, 22);
@@ -133,7 +140,9 @@
             // tsStatusText
             // 
             this.tsStatusText.AutoSize = false;
-            this.tsStatusText.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides) ((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.tsStatusText.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.tsStatusText.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
             this.tsStatusText.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsStatusText.Name = "tsStatusText";
@@ -152,7 +161,11 @@
             // cmb_filter
             // 
             this.cmb_filter.FormattingEnabled = true;
-            this.cmb_filter.Items.AddRange(new object[] {"*.mp4", "*.jpg", "*.mp4;*.jpg", "*.*"});
+            this.cmb_filter.Items.AddRange(new object[] {
+            "*.mp4",
+            "*.jpg",
+            "*.mp4;*.jpg",
+            "*.*"});
             this.cmb_filter.Location = new System.Drawing.Point(321, 12);
             this.cmb_filter.Name = "cmb_filter";
             this.cmb_filter.Size = new System.Drawing.Size(191, 21);
@@ -178,11 +191,12 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Change file date and time";
             this.Shown += new System.EventHandler(this.Form1_Shown);
-            ((System.ComponentModel.ISupportInitialize) (this.gridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         private System.Windows.Forms.Button btnChangeDateTime;

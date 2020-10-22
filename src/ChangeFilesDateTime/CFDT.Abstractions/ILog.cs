@@ -1,4 +1,4 @@
-﻿namespace ChangeFilesDateTimeApp.Logger
+﻿namespace CFDT.Abstractions
 {
     public interface ILog
     {

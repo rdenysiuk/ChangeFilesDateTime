@@ -49,15 +49,14 @@
   <ItemGroup>
     <Compile Include="Config\AppConfig.cs" />
     <Compile Include="DateTimeChange.cs" />
+    <Compile Include="DateTimeFromFileName.cs" />
     <Compile Include="Extensions\DirectoryInfoExtension.cs" />
-    <Compile Include="FileData.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Logger\ILog.cs" />
     <Compile Include="Logger\LogInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -86,6 +85,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CFDT.Abstractions\CFDT.Abstractions.csproj">
+      <Project>{A1596B99-19D5-4C77-AC85-14CB78EB22C4}</Project>
+      <Name>CFDT.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CFDT.Primitives\CFDT.Primitives.csproj">
+      <Project>{87DCD224-1850-44A6-82F2-1FDB926E12C2}</Project>
+      <Name>CFDT.Primitives</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

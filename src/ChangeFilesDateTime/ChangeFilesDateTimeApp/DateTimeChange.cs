@@ -1,5 +1,6 @@
-﻿using ChangeFilesDateTimeApp.Extensions;
-using ChangeFilesDateTimeApp.Logger;
+﻿using CFDT.Abstractions;
+using CFDT.Primitives;
+using ChangeFilesDateTimeApp.Extensions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,16 +10,18 @@ namespace ChangeFilesDateTimeApp
 {
     public class DateTimeChange
     {
-        readonly ILog _log;
+        #region FIELDS AND .CTOR
+        private readonly ILog _log;
+        private readonly IFileNameParse _fileNames;
+        public DateTimeChange(ILog log, IFileNameParse fileNames)
+        {
+            _log = log;
+            _fileNames = fileNames;
+        }
+        #endregion
         private string _pathFolder;
         public string Filter { get; set; }
         public List<FileData> ListFile => GetFiles();
-
-        public DateTimeChange(ILog log)
-        {
-            _log = log;
-        }
-
         public void SetPathFolder(string pathFolder)
         {
             _pathFolder = pathFolder;
@@ -31,20 +34,16 @@ namespace ChangeFilesDateTimeApp
 
         void ChangeLastWriteTime()
         {
-            foreach (var file in ListFile)
-            {
-                file.File.LastWriteTime = file.NewDateTime;
-            }
+            //foreach (var file in ListFile)            
+            //    file.File.LastWriteTime = file.NewDateTime;            
 
             _log.Log($"Success. Modified time changed {ListFile.Count} times");
         }
 
         void ChangeCreationTime()
         {
-            foreach (var file in ListFile)
-            {
-                file.File.CreationTime = file.NewDateTime;
-            }
+            //foreach (var file in ListFile)            
+            //    file.File.CreationTime = file.NewDateTime;            
 
             _log.Log($"Success. Creation time changed {ListFile.Count} times");
         }
@@ -55,16 +54,12 @@ namespace ChangeFilesDateTimeApp
                 return new List<FileData>();
 
             var folder = new DirectoryInfo(_pathFolder);
-            var filters = Filter.Split(new char[] {',', ';'}, StringSplitOptions.None);
+            var filters = Filter.Split(new char[] { ',', ';' }, StringSplitOptions.None);
             var files = folder.GetFilesByExtensions(filters);
 
             _log.Log($"Found {files.Count()} files");
 
-            return files.Select(f => new FileData()
-                {
-                    File = f
-                }
-            ).ToList();
+            return files.Select(f => new FileData(f, _fileNames)).Where(a => a.LastWriteTime != a.NewDateTime).ToList();
         }
 
         bool isFolderExists(string pathFolder)
