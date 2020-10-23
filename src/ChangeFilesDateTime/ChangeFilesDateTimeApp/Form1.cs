@@ -13,7 +13,7 @@ namespace ChangeFilesDateTimeApp
         #region FIELDS
         DateTimeChange _dateTimeChanger;
         LogInfo _logInfo;
-        DateTimeFromFileName _fileName; 
+        DateTimeFromFileName _fileName;
         #endregion
         public Form1()
         {
@@ -23,7 +23,7 @@ namespace ChangeFilesDateTimeApp
             _logInfo = new LogInfo(tsStatusText);
             _fileName = new DateTimeFromFileName();
         }
-                
+
         List<FileData> _fileList;
         #region FORM EVETS
         private void Form1_Shown(object sender, EventArgs e)
@@ -69,7 +69,8 @@ namespace ChangeFilesDateTimeApp
                                           MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (message == DialogResult.Yes)
             {
-
+                var changedFiles = _dateTimeChanger.ChangeDateTime(_fileList);
+                DeleteRowsChangedFiles(changedFiles);
             }
         }
         #endregion
@@ -81,7 +82,7 @@ namespace ChangeFilesDateTimeApp
         {
             gridView.Rows.Clear();
             foreach (FileData item in _fileList)
-                gridView.Rows.Add(item.FileName, item.LastWriteTime, item.NewDateTime);
+                gridView.Rows.Add(item.FileInfo, item.LastWriteTime, item.NewDateTime);
         }
         private void LoadSettingsFromConfig()
         {
@@ -111,12 +112,20 @@ namespace ChangeFilesDateTimeApp
                                           MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (message == DialogResult.Yes)
             {
-                _fileList.Remove(_fileList.FirstOrDefault(_ => _.FileName == fileName));
+                _fileList.Remove(_fileList.FirstOrDefault(_ => _.FileInfo.Name == fileName));
                 _logInfo.Log($"{_fileList.Count} files...");
                 return false;
             }
             else
                 return true;
+        }
+        private void DeleteRowsChangedFiles(IEnumerable<string> changedFiles)
+        {
+            foreach (DataGridViewRow row in gridView.Rows)
+            {
+                if (changedFiles.Any(_ => _ == row.Cells[0].Value.ToString()))
+                    gridView.Rows.Remove(row);
+            }
         }
     }
 }

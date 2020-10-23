@@ -12,11 +12,11 @@ namespace ChangeFilesDateTimeApp
     {
         #region FIELDS AND .CTOR
         private readonly ILog _log;
-        private readonly IFileNameParse _fileNames;
+        private readonly IFileNameParse _fileNames;        
         public DateTimeChange(ILog log, IFileNameParse fileNames)
         {
             _log = log;
-            _fileNames = fileNames;
+            _fileNames = fileNames;            
         }
         #endregion
         private string _pathFolder;
@@ -28,6 +28,23 @@ namespace ChangeFilesDateTimeApp
             _log.Log(isFolderExists(_pathFolder)
                 ? $"Success. Folder exist {_pathFolder}"
                 : $"Fail. Folder {_pathFolder} doesn't exist");
+        }
+
+        public IEnumerable<string> ChangeDateTime(IEnumerable<FileData> fileList)
+        {
+            var fileNameList = new List<string>();
+            foreach (FileData fileItem in fileList)
+            {
+                try
+                {
+                    fileItem.FileInfo.LastWriteTime = fileItem.NewDateTime;
+                    fileNameList.Add(fileItem.FileInfo.Name);
+                }
+                catch (Exception)
+                {
+                }                
+            }
+            return fileNameList;
         }
 
         #region Private methods
@@ -57,9 +74,10 @@ namespace ChangeFilesDateTimeApp
             var filters = Filter.Split(new char[] { ',', ';' }, StringSplitOptions.None);
             var files = folder.GetFilesByExtensions(filters);
 
-            _log.Log($"Found {files.Count()} files");
+            var fileList = files.Select(f => new FileData(f, _fileNames)).Where(a => a.LastWriteTime != a.NewDateTime).ToList();
+            _log.Log($"Found {files.Count()} files. {fileList.Count} of them has wrong datetime");
 
-            return files.Select(f => new FileData(f, _fileNames)).Where(a => a.LastWriteTime != a.NewDateTime).ToList();
+            return fileList;
         }
 
         bool isFolderExists(string pathFolder)

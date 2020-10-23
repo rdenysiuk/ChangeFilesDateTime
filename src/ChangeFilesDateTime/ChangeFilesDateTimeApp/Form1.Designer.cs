@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.txtFolderPath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.gridView = new System.Windows.Forms.DataGridView();
@@ -80,7 +81,7 @@
             this.gridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.gridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridView.Size = new System.Drawing.Size(497, 368);
-            this.gridView.TabIndex = 3;            
+            this.gridView.TabIndex = 3;
             this.gridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.gridView_UserDeletingRow);
             // 
             // filename
@@ -186,6 +187,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtFolderPath);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

@@ -6,13 +6,13 @@ namespace CFDT.Primitives
 {
     public class FileData
     {
-        public string FileName { get; protected set; }
+        public FileInfo FileInfo { get; protected set; }
         public DateTime LastWriteTime { get; protected set; }
         public DateTime NewDateTime { get; protected set; }
 
         public FileData(FileInfo file, IFileNameParse fileNames)
         {
-            FileName = file.Name;
+            FileInfo = file;
             LastWriteTime = file.LastWriteTime;
             NewDateTime = fileNames.Parse(file);
         }
